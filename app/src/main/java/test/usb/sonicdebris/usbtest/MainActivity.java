@@ -2,6 +2,7 @@ package test.usb.sonicdebris.usbtest;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,9 +21,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Example of a call to a native method
         tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText("yo!");
+        tv.setMovementMethod(new ScrollingMovementMethod());
+        tv.setText("Connect a USB device...");
 
         usbHelper = new UsbHelper(this);
     }

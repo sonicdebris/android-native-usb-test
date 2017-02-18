@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-// #define DEBUG 1
+#define DEBUG 1
 #if DEBUG
 
-#ifdef USE_LIBLOG
-#define LOG_TAG "usbhost"
-#include "utils/Log.h"
-#define D ALOGD
-#else
-#define D printf
-#endif
+//#ifdef USE_LIBLOG
+//#define LOG_TAG "usbhost"
+//#include "utils/Log.h"
+//#define D ALOGD
+//#else
+//#define D printf
+//#endif
+
+#include <android/log.h>
+#define D(...)  __android_log_print(ANDROID_LOG_INFO, "usbhost custom", __VA_ARGS__)
 
 #else
 #define D(...)
@@ -363,6 +366,7 @@ struct usb_device *usb_device_new(const char *dev_name, int fd)
 
     if (lseek(fd, 0, SEEK_SET) != 0)
         goto failed;
+    D("usb_device_new read. errno before read: %d\n", errno);
     length = read(fd, device->desc, sizeof(device->desc));
     D("usb_device_new read returned %d errno %d\n", length, errno);
     if (length < 0)
